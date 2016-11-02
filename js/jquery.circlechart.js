@@ -37,20 +37,28 @@
                    'border-radius': '100%',
                    'background-color': defaults.coverBg
                },
-               percent: {
-                  'display':'block',
+               text: {
+                  'display': 'table-cell',
                   'width': defaults.diameter,
-                   'height': defaults.diameter,
-                   'line-height': defaults.diameter + 'px',
-                   'vertical-align': 'middle',
-                   'font-size': defaults.percentSize,
-                   'font-weight': defaults.percentWeight,
-                   'color': defaults.fillColor
-                    }
+                  'height': defaults.diameter,
+                  'vertical-align': 'middle',
+                  'color': defaults.fillColor
+                },
+               inner: {
+                  'display': 'inline-block',
+                  'width': defaults.diameter / 2,
+                  'height': defaults.diameter / 2
+               },
+               percent: {
+                  'font-size': defaults.percentSize,
+                  'font-weight': defaults.percentWeight,
+               },
+               title: {
+               }
             };
 
          var that = this,
-               template = '<div><div class="ab"><div class="cir"><span class="perc">{{percentage}}</span></div></div></div>',
+               template = '<div><div class="ab"><div class="cir"><div class="text"><div class="inner"><div class="title">{{title}}</div><div class="perc">{{percentage}}</div></div></div></div></div></div>',
                options =  $.extend(defaults, options)
 
          function init(){
@@ -58,11 +66,22 @@
                var $this = $(this),
                    //we need to check for a percent otherwise set to 0;
                   perc = Math.round($this.data('percent')), //get the percentage from the element
+                  title = $this.data('title') || '',
                   deg = perc * 3.6,
                   stop = options.animate ? 0 : deg,
-                  $chart = $(template.replace('{{percentage}}',perc+'%'));
+                  altLabel = $this.data('alt-label'),
+                  $chart = $(template.replace('{{percentage}}',
+                     altLabel !== 'undefined' ? altLabel : perc+'%')
+                     .replace('{{title}}',title)
+                  );
                   //set all of the css properties forthe chart
-                  $chart.css(styles.cirContainer).find('.ab').css(styles.cir).find('.cir').css(styles.cirCover).find('.perc').css(styles.percent);
+                  $chart.css(styles.cirContainer)
+                     .find('.ab').css(styles.cir)
+                     .find('.cir').css(styles.cirCover)
+                     .find('.text').css(styles.text)
+                     .find('.inner').css(styles.inner)
+                     .find('.title').css(styles.title)
+                     .siblings('.perc').css(styles.percent);
 
                $this.append($chart); //add the chart back to the target element
                setTimeout(function(){
