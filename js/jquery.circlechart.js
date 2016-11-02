@@ -10,7 +10,7 @@
                coverBg: '#fff',
                bgColor: '#efefef',
                fillColor: '#5c93c8',
-               percentSize: '15px',
+               percentSize: '14px',
                percentWeight: 'normal'
             },
             styles = {
