@@ -10,8 +10,8 @@
                coverBg: '#fff',
                bgColor: '#efefef',
                fillColor: '#5c93c8',
-               percentSize: '14px',
-               percentWeight: 'normal'
+               textSize: '14px',
+               textWeight: 'normal'
             },
             styles = {
                cirContainer : {
@@ -49,29 +49,32 @@
                   'width': defaults.diameter / 2,
                   'height': defaults.diameter / 2
                },
-               percent: {
-                  'font-size': defaults.percentSize,
-                  'font-weight': defaults.percentWeight,
+               label: {
+                  'font-size': defaults.textSize,
+                  'font-weight': defaults.textWeight,
                },
                title: {
                }
             };
 
          var that = this,
-            template = '<div><div class="ab"><div class="cir"><div class="text"><div class="inner"><div class="title">{{title}}</div><div class="perc">{{percentage}}</div></div></div></div></div></div>',
+            template = '<div><div class="ab"><div class="cir"><div class="text"><div class="inner"><div class="title">{{title}}</div><div class="data-value">{{datavalue}}</div></div></div></div></div></div>',
             options =  $.extend(defaults, options)
 
          function init() {
             that.each(function() {
                var $this = $(this),
-                  // we need to check for a percent otherwise set to 0;
-                  perc = Math.round($this.data('percent')), // get the percentage from the element
+                  // check for percent and/or total, otherwise set to 0;
+                  dataPercent = Math.round($this.data('percent')),
+                  dataValue = $this.data('value'),
+                  dataTotal = Math.round($this.data('total')),
+                  stopDeg = ( dataValue !== 'undefined'
+                     ? dataValue / dataTotal * 100
+                     : dataPercent ) * 3.6,
+                  startDeg = options.animate ? 0 : stopDeg,
                   title = $this.data('title') || '',
-                  deg = perc * 3.6,
-                  stop = options.animate ? 0 : deg,
-                  altLabel = $this.data('alt-label'),
-                  $chart = $(template.replace('{{percentage}}',
-                     altLabel !== 'undefined' ? altLabel : perc+'%')
+                  $chart = $(template.replace('{{datavalue}}',
+                     dataValue !== 'undefined' ? dataValue : dataPercent+'%')
                      .replace('{{title}}',title)
                   );
                   // set all of the css properties forthe chart
@@ -81,11 +84,11 @@
                      .find('.text').css(styles.text)
                      .find('.inner').css(styles.inner)
                      .find('.title').css(styles.title)
-                     .siblings('.perc').css(styles.percent);
+                     .siblings('.data-value').css(styles.label);
 
                $this.append($chart); // add the chart back to the target element
                setTimeout( function() {
-                  animateChart(deg,parseInt(stop),$chart.find('.ab')); // both values set to the same value to keep the function from looping and animating
+                  animateChart(stopDeg,parseInt(startDeg),$chart.find('.ab')); // both values set to the same value to keep the function from looping and animating
                }, 250)
             });
          }
