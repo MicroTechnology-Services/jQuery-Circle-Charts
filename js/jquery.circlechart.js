@@ -45,9 +45,7 @@
                   'color': defaults.fillColor
                 },
                inner: {
-                  'display': 'inline-block',
-                  'width': defaults.diameter / 2,
-                  'height': defaults.diameter / 2
+                  'display': 'inline-block'
                },
                label: {
                   'font-size': defaults.textSize,
