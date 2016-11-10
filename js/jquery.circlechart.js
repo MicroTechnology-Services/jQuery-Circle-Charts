@@ -71,7 +71,10 @@
                   startDeg = options.animate ? 0 : stopDeg,
                   title = $this.data('title') || '',
                   $chart = $(template.replace('{{datavalue}}',
-                     dataValue !== 'undefined' ? dataValue : dataPercent+'%')
+                     dataValue !== 'undefined'
+                        ? dataValue + (options.displayFractionalTotal
+                           ? '/' + dataTotal : '')
+                        : dataPercent+'%')
                      .replace('{{title}}',title)
                   );
                   // set all of the css properties forthe chart
