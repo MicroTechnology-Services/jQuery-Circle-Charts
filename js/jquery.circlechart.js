@@ -13,51 +13,50 @@
                textSize: '14px',
                textWeight: 'normal'
             },
+            that = this,
+            template = '<div><div class="ab"><div class="cir"><div class="text"><div class="inner"><div class="title">{{title}}</div><div class="data-value">{{datavalue}}</div></div></div></div></div></div>',
+            options =  $.extend(defaults, options),
             styles = {
                cirContainer : {
-                  'width':defaults.diameter,
-                 'height':defaults.diameter
+                  'width':options.diameter,
+                 'height':options.diameter
                },
                cir : {
                   'position': 'relative',
                   'text-align': 'center',
-                  'width': defaults.diameter,
-                  'height': defaults.diameter,
+                  'width': options.diameter,
+                  'height': options.diameter,
                   'border-radius': '100%',
-                  'background-color': defaults.bgColor,
-                  'background-image' : 'linear-gradient(91deg, transparent 50%, '+defaults.bgColor+' 50%), linear-gradient(90deg, '+defaults.bgColor+' 50%, transparent 50%)'
+                  'background-color': options.bgColor,
+                  'background-image' : 'linear-gradient(91deg, transparent 50%, '+options.bgColor+' 50%), linear-gradient(90deg, '+options.bgColor+' 50%, transparent 50%)'
                },
                cirCover: {
                   'position': 'relative',
-                  'top': defaults.guage,
-                  'left': defaults.guage,
+                  'top': options.guage,
+                  'left': options.guage,
                   'text-align': 'center',
-                  'width': defaults.diameter - (defaults.guage * 2),
-                  'height': defaults.diameter - (defaults.guage * 2),
+                  'width': options.diameter - (options.guage * 2),
+                  'height': options.diameter - (options.guage * 2),
                   'border-radius': '100%',
-                  'background-color': defaults.coverBg
+                  'background-color': options.coverBg
                },
                text: {
                   'display': 'table-cell',
-                  'width': defaults.diameter,
-                  'height': defaults.diameter,
+                  'width': options.diameter,
+                  'height': options.diameter,
                   'vertical-align': 'middle',
-                  'color': defaults.fillColor
+                  'color': options.fillColor
                 },
                inner: {
                   'display': 'inline-block'
                },
                label: {
-                  'font-size': defaults.textSize,
-                  'font-weight': defaults.textWeight,
+                  'font-size': options.textSize,
+                  'font-weight': options.textWeight,
                },
                title: {
                }
             };
-
-         var that = this,
-            template = '<div><div class="ab"><div class="cir"><div class="text"><div class="inner"><div class="title">{{title}}</div><div class="data-value">{{datavalue}}</div></div></div></div></div></div>',
-            options =  $.extend(defaults, options)
 
          function init() {
             that.each(function() {
