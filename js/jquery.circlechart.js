@@ -7,6 +7,7 @@
                animate : true,
                diameter : 100,
                guage: 2,
+               stepVal: 1,
                coverBg: '#fff',
                bgColor: '#efefef',
                fillColor: '#5c93c8',
@@ -101,7 +102,7 @@
                } else {
                   $elm.css('background-image','linear-gradient(' + (deg-90) + 'deg, transparent 50%, '+options.bgColor+' 50%),linear-gradient(90deg, '+options.fillColor+' 50%, transparent 50%)');
                }
-               curr ++;
+               curr = curr + options.stepVal;
                setTimeout( function() {
                   animateChart(stop,curr,$elm);
                }, 1);
